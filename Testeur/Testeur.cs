@@ -32,9 +32,7 @@ namespace Testeur
             MonJeu.JouerPartie("BeGood"); //Encore une partie 
             MonJeu.JouerPartie("John"); //Encore une partie 
             MonJeu.JouerPartie("Dédé"); //Encore une partie 
-            MonJeu.JouerPartie(); //Encore une partie 
-            MonJeu.JouerPartie(); //Encore une partie 
-            MonJeu.JouerPartie(); //Encore une partie  
+            
 
             MonJeu.VoirClassement();
             //Console.ReadKey();
