@@ -17,6 +17,13 @@ namespace Jeu2Des
     {
        
         private Joueur _Joueur;
+        
+        private Classement _Classement ;
+
+        //public Classement Classement
+        //{
+        //    get { return _Classement; }
+        //}
 
         /// <summary>
         /// Représente le joueur courant (celui qui joue une partie)
@@ -33,14 +40,15 @@ namespace Jeu2Des
         /// <summary>
         /// Crée un jeu de 2 Dés avec un classement
         /// </summary> 
-       public Jeu()
+        public Jeu()
         {
-
             //A la création du jeu : les 2 dés sont crées 
-            //On aurait pu créer les 2 Des juste au moment de jouer  
+            //On aurait pu créer les 2 Des juste au moment de jouer 
+             
             _Des[0] = new De();
             _Des[1] = new De();
-            
+            _Classement = new Classement();
+            _Classement.Load();            
         }
 
         /// <summary>
@@ -49,13 +57,14 @@ namespace Jeu2Des
         /// <param name="nom">Le nom du joueur</param>
         public void JouerPartie(string nom)
         {
-
             //Le joueur est créé quand la partie démarre
             _Joueur = new Joueur(nom);
 
             //On fait jouer le joueur en lui passant les 2 dés
             int resultat = _Joueur.Jouer(_Des);
-           
+
+            _Classement.AjouterEntree(nom, resultat);
+                       
         }
 
         /// <summary>
@@ -64,14 +73,29 @@ namespace Jeu2Des
         /// </summary>        
         public void JouerPartie()
         {
-
             //Le joueur est créé quand la partie démarre
-            _Joueur = new Joueur();
+            _Joueur = new Joueur();            
 
             //Le joueur Joue et on récupère son score
             int resultat = _Joueur.Jouer(_Des);
-            
+
+            _Classement.AjouterEntree(_Joueur.Nom, resultat);
         }
-        
+
+        public void VoirClassement()
+        {
+            _Classement.TopN();
+        }
+
+        public void VoirClassement(int n)
+        {
+            _Classement.TopN(n);
+        }
+
+        public void Quitter()
+        {
+            _Classement.Save();
+        }        
+
     }
 }

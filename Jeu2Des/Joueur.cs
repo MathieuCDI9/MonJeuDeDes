@@ -62,8 +62,8 @@ namespace Jeu2Des
         
 
         /// <summary>
-        /// Joue une partie : lance les 2 Des 10 fois et calacule le score du joueur
-        /// A chaque lancer :  si le total des 2 Des est égal à 7 le joueur marque 10 points sinon 0 
+        /// Joue une partie : lance les 2 dés 10 fois et calcule le score du joueur
+        /// A chaque lancer :  si le total des 2 dés est égal à 7 le joueur marque 10 points sinon 0 
         /// </summary>
         /// <param name="des">Les 2 dés</param>
         /// <returns>Le score du joueur</returns>
@@ -76,12 +76,13 @@ namespace Jeu2Des
                 int total = des[0].Lancer() + des[1].Lancer();
                 if (total == 7)
                     _Score = _Score + 10;
-            }
+            }            
 
             //TODO : dans cette version le résutat est affiché à la console
-            //TODO : en attendant la mise e place du classement 
-            Console.WriteLine(this.ToString()); 
+            //TODO : en attendant la mise en place du classement 
+            //Console.WriteLine(this.ToString()); 
             return _Score;
+            
         }
 
         /// <summary>
