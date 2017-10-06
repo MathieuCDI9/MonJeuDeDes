@@ -16,7 +16,7 @@ namespace Jeu2Des
      public class Jeu
     {
         /// <summary>
-        ///     
+        ///     lol
         /// </summary>
               
         private Joueur _Joueur;
