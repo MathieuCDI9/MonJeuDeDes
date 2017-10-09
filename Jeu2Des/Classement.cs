@@ -69,7 +69,7 @@ namespace Jeu2Des
             serialiseur.Serialize(fichier, this._listedentrees);
             fichier.Close();
         }
-        public void Load()
+        public void Load(int n)
         {
             if (File.Exists("highscores.txt"))
             {
@@ -80,7 +80,7 @@ namespace Jeu2Des
                 Console.WriteLine(obj);
                 this._listedentrees = (List<Entree>)obj; //TODO y revenir
                 fichierrecup.Close();
-                this.TopN();
+                this.TopN(n);
 
             }
 

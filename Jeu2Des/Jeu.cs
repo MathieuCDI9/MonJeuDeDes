@@ -51,7 +51,7 @@ namespace Jeu2Des
             _Des[0] = new De();
             _Des[1] = new De();
             _Classement = new Classement();
-            _Classement.Load();            
+            _Classement.Load(5);            
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace Testeur
             MonJeu.JouerPartie("Dédé"); //Encore une partie 
             
 
-            MonJeu.VoirClassement();
+            MonJeu.VoirClassement(10);
             //Console.ReadKey();
 
             //Console.ReadLine();
