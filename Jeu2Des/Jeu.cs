@@ -26,6 +26,7 @@ namespace Jeu2Des
         //public Classement Classement
         //{
         //    get { return _Classement; }
+        //    set { _Classement = value; }
         //}
 
         /// <summary>
@@ -43,22 +44,39 @@ namespace Jeu2Des
         /// <summary>
         /// Crée un jeu de 2 Dés avec un classement
         /// </summary> 
-        public Jeu()
+        public Jeu(int loader)
         {
             //A la création du jeu : les 2 dés sont crées 
             //On aurait pu créer les 2 Des juste au moment de jouer 
              
             _Des[0] = new De();
-            _Des[1] = new De();
-            _Classement = new Classement();
-            _Classement.Load(5);            
+            _Des[1] = new De();            
+
+            //int sauve = 1;
+
+            switch (loader)
+            {
+                case 1:
+                    _Classement = new ClassementBinaire();
+                    break;
+
+                case 2:
+                    _Classement = new ClassementXML();
+                    break;               
+
+                default:
+                    _Classement = new ClassementJSON();
+                    break;
+            }
+
+            _Classement.Load();            
         }
 
         /// <summary>
         /// Permet de faire une partie du jeu de dés en indiquant le nom du joueur
         /// </summary>
         /// <param name="nom">Le nom du joueur</param>
-        public void JouerPartie(string nom)
+        public int JouerPartie(string nom)
         {
             //Le joueur est créé quand la partie démarre
             _Joueur = new Joueur(nom);
@@ -67,14 +85,15 @@ namespace Jeu2Des
             int resultat = _Joueur.Jouer(_Des);
 
             _Classement.AjouterEntree(nom, resultat);
-                       
+
+            return resultat;
         }
 
         /// <summary>
         /// Permet de faire une partie du jeu de dés
         /// Le nom du joueur n'est pas donnée en entrée : il sera généré exemple : Joueur 1, Joueur 2, ...  
         /// </summary>        
-        public void JouerPartie()
+        public int JouerPartie()
         {
             //Le joueur est créé quand la partie démarre
             _Joueur = new Joueur();            
@@ -83,6 +102,8 @@ namespace Jeu2Des
             int resultat = _Joueur.Jouer(_Des);
 
             _Classement.AjouterEntree(_Joueur.Nom, resultat);
+
+            return resultat;
         }
 
         public void VoirClassement()

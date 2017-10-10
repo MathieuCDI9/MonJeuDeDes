@@ -10,11 +10,17 @@ using System.Text;
 namespace Jeu2Des
 {
     [Serializable]
-    public class Classement 
+    public abstract class Classement 
     {        
-        private List<Entree> _listedentrees;  
+        private List<Entree> _listedentrees;
 
-        
+        public List<Entree> listedentrees
+        {
+            get { return _listedentrees; }
+            set { _listedentrees = value; }
+        }
+
+
         public Classement()
         {
             _listedentrees = new List<Entree>();
@@ -45,7 +51,7 @@ namespace Jeu2Des
             int place = 0;
             _listedentrees.Sort();
             _listedentrees.Reverse();
-            _listedentrees = _listedentrees.GetRange(0, n);
+            _listedentrees = _listedentrees.GetRange(0, Math.Min(n, _listedentrees.Count()));
             foreach (Entree item in _listedentrees)
             {
                 place = place + 1;
@@ -61,30 +67,10 @@ namespace Jeu2Des
             TopN(_listedentrees.Count());
         }
 
-        public void Save()
-        {
-            // Stream nécessite System.IO  
-            Stream fichier = File.Create("highscores.txt");
-            BinaryFormatter serialiseur = new BinaryFormatter();
-            serialiseur.Serialize(fichier, this._listedentrees);
-            fichier.Close();
-        }
-        public void Load(int n)
-        {
-            if (File.Exists("highscores.txt"))
-            {
-                //If vide
-                Stream fichierrecup = File.OpenRead("highscores.txt");
-                BinaryFormatter seriali = new BinaryFormatter();
-                Object obj = seriali.Deserialize(fichierrecup);
-                Console.WriteLine(obj);
-                this._listedentrees = (List<Entree>)obj; //TODO y revenir
-                fichierrecup.Close();
-                this.TopN(n);
+        public abstract void Save();
 
-            }
-
-        }
+        public abstract void Load();
+        
         [Serializable]
         public class Entree : IComparable
         {
@@ -101,6 +87,7 @@ namespace Jeu2Des
                 get { return _Score; }
                 set { _Score = value; }
             }
+            public Entree() { }
             public Entree(string nomjoueur, int score)
             {
                 _Nom = nomjoueur;
